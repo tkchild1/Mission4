@@ -1,20 +1,18 @@
-﻿Console.WriteLine("Welcome to Tic-Tac-Toe!");
-Console.WriteLine("Pick a square by typing a number 1-9:");
-Console.WriteLine("1 2 3");
-Console.WriteLine("4 5 6");
-Console.WriteLine("7 8 9");
+﻿using Mission4;
+Console.WriteLine("Welcome to Tic-Tac-Toe!");
+Console.WriteLine("Pick a square by typing a number 0-8:");
 Console.WriteLine();
 Console.WriteLine("Player X will go first");
-char[] board = new char[8];
+string[] board = ["1","2","3","4","5","6","7","8","9"];
 
-TicTacToeTools TTT = new TicTacToeTools()
+TicTacToeTools TTT = new TicTacToeTools();
 bool iswinner = false;
  int xSelection = 0;
-int OSelection = 0
+ int OSelection = 0;
 
-void printBoard(string[] board)
 
-while (!iswinner) ;
+
+while (iswinner);
 {
     TTT.printBoard(board);
     Console.WriteLine("Player X, What is your selection?");
