@@ -6,7 +6,6 @@ Console.WriteLine("Player X will go first\n");
 // Initialize the board with numbers 1-9
 string[] board = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
 TicTacToeTools TTT = new TicTacToeTools();
-bool isWinner = false;
 int xSelection = 0;
 int OSelection = 0;
 string winner = "";
@@ -14,7 +13,7 @@ int turnsCounter = 0;
 List<int> usedSquares = new List<int>(); // Keeps track of squares that have been picked
 
 // Main game loop - runs until someone wins or board is full
-while (!isWinner && turnsCounter < 9)
+while (winner == "" && turnsCounter < 9)
 {
     TTT.printBoard(board);
 
@@ -56,10 +55,9 @@ while (!isWinner && turnsCounter < 9)
     updateBoard("X", xSelection, board);
     turnsCounter++;
     TTT.printBoard(board);
-    isWinner = TTT.isWinner(board);
-    if (isWinner)
+    winner = TTT.isWinner(board); // Gets the winner or empty string
+    if (winner != "")
     {
-        winner = "Player X";
         break;
     }
 
@@ -101,11 +99,7 @@ while (!isWinner && turnsCounter < 9)
     updateBoard("O", OSelection, board);
     turnsCounter++;
     TTT.printBoard(board);
-    isWinner = TTT.isWinner(board);
-    if (isWinner)
-    {
-        winner = "Player O";
-    }
+    winner = TTT.isWinner(board); // Gets the winner or empty string
 }
 
 // Display final result
@@ -115,7 +109,7 @@ if (winner == "")
 }
 else
 {
-    Console.WriteLine($"Congrats {winner}! You have won the game. Thanks for playing!");
+    Console.WriteLine($"Congrats Player {winner}! You have won the game. Thanks for playing!");
 }
 
 // Function to update the board with player's move
