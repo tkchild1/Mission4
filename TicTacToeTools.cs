@@ -8,11 +8,11 @@ namespace Mission4
     {
         public void printBoard(string[] board)
         {
-            Console.WriteLine($"{board[0]} | {board[1]} | {board[2]}");
+            Console.WriteLine($"\n{board[0]} | {board[1]} | {board[2]}");
             Console.WriteLine("---------");
             Console.WriteLine($"{board[3]} | {board[4]} | {board[5]}");
             Console.WriteLine("---------");
-            Console.WriteLine($"{board[6]} | {board[7]} | {board[8]}");
+            Console.WriteLine($"{board[6]} | {board[7]} | {board[8]}\n");
         }
 
         public bool isWinner(string[] board)
@@ -26,7 +26,7 @@ namespace Mission4
             {
                 result = true;
             }
-            else if (board[6] == board[7] && board[6] == board[7])
+            else if (board[6] == board[7] && board[6] == board[8])
             {
                 result = true;
             }
@@ -55,12 +55,6 @@ namespace Mission4
                 result = false;
             }
             return result;
-        }
-
-        public string[] updateBoard(string team, int selection, string[] board)
-        {
-            board[selection - 1] = team;
-            return board;
         }
     }
 }
