@@ -1,28 +1,60 @@
 ﻿using Mission4;
-
-
 Console.WriteLine("Welcome to Tic-Tac-Toe!");
 Console.WriteLine("Pick a square by typing a number 1-9");
 Console.WriteLine("Player X will go first\n");
 
-
-string[] board = ["1","2","3","4","5","6","7","8","9"];
-
+// Initialize the board with numbers 1-9
+string[] board = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
 TicTacToeTools TTT = new TicTacToeTools();
 bool isWinner = false;
 int xSelection = 0;
 int OSelection = 0;
 string winner = "";
 int turnsCounter = 0;
+List<int> usedSquares = new List<int>(); // Keeps track of squares that have been picked
 
-
-while (!isWinner)
+// Main game loop - runs until someone wins or board is full
+while (!isWinner && turnsCounter < 9)
 {
     TTT.printBoard(board);
-    Console.Write("Player X, enter your selection: ");
-    xSelection = int.Parse(Console.ReadLine());
-    turnsCounter++;
+
+    // Player X's turn with input validation
+    bool validInput = false;
+    while (!validInput)
+    {
+        Console.Write("Player X, enter your selection (1-9): ");
+        string input = Console.ReadLine();
+
+        // Check if input is a number
+        if (int.TryParse(input, out xSelection))
+        {
+            // Make sure number is in range
+            if (xSelection >= 1 && xSelection <= 9)
+            {
+                // Check if square hasn't been taken yet
+                if (!usedSquares.Contains(xSelection))
+                {
+                    validInput = true;
+                    usedSquares.Add(xSelection);
+                }
+                else
+                {
+                    Console.WriteLine("That square is already taken! Try again.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Please enter a number between 1 and 9.");
+            }
+        }
+        else
+        {
+            Console.WriteLine("Invalid input. Please enter a number.");
+        }
+    }
+
     updateBoard("X", xSelection, board);
+    turnsCounter++;
     TTT.printBoard(board);
     isWinner = TTT.isWinner(board);
     if (isWinner)
@@ -30,38 +62,65 @@ while (!isWinner)
         winner = "Player X";
         break;
     }
-    if (turnsCounter >= 9)
+
+    // Check for tie after X's turn
+    if (turnsCounter >= 9) break;
+
+    // Player O's turn with input validation
+    validInput = false;
+    while (!validInput)
     {
-        winner = "None";
-        break;
+        Console.Write("Player O, enter your selection (1-9): ");
+        string input = Console.ReadLine();
+
+        if (int.TryParse(input, out OSelection))
+        {
+            if (OSelection >= 1 && OSelection <= 9)
+            {
+                if (!usedSquares.Contains(OSelection))
+                {
+                    validInput = true;
+                    usedSquares.Add(OSelection);
+                }
+                else
+                {
+                    Console.WriteLine("That square is already taken! Try again.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Please enter a number between 1 and 9.");
+            }
+        }
+        else
+        {
+            Console.WriteLine("Invalid input. Please enter a number.");
+        }
     }
 
-    Console.Write("Player O, enter your selection: ");
-    OSelection= int.Parse(Console.ReadLine());
-    turnsCounter++;
-
     updateBoard("O", OSelection, board);
+    turnsCounter++;
+    TTT.printBoard(board);
     isWinner = TTT.isWinner(board);
     if (isWinner)
     {
-        TTT.printBoard(board);
         winner = "Player O";
     }
 }
-if(winner == "None")
+
+// Display final result
+if (winner == "")
 {
     Console.WriteLine("Cats Game! Good try! I guess you can both be winners.");
 }
 else
 {
     Console.WriteLine($"Congrats {winner}! You have won the game. Thanks for playing!");
-}  
+}
 
+// Function to update the board with player's move
 string[] updateBoard(string team, int selection, string[] board)
 {
     board[selection - 1] = team;
     return board;
 }
-
-
-

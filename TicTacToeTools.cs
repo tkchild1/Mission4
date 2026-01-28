@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
+// The class that contains the two methods of the TicTacToeTools
 namespace Mission4
 {
     internal class TicTacToeTools
     {
+        // A method that prints the board, so that it is formatted nicely
         public void printBoard(string[] board)
         {
             Console.WriteLine($"\n{board[0]} | {board[1]} | {board[2]}");
@@ -15,6 +16,7 @@ namespace Mission4
             Console.WriteLine($"{board[6]} | {board[7]} | {board[8]}\n");
         }
 
+        // Check the board to see if there is a winner. Basically just checks if any of the winning combinations have all the same letter
         public bool isWinner(string[] board)
         {
             bool result = false;
